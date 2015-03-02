@@ -162,6 +162,11 @@
 				CLASSPREFIX = SV;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Home;
+				TargetAttributes = {
+					22E0D9131545EE5B00BB6BB5 = {
+						DevelopmentTeam = SNU9N24VYW;
+					};
+				};
 			};
 			buildConfigurationList = 22E0D90E1545EE5B00BB6BB5 /* Build configuration list for PBXProject "SVPullToRefreshDemo" */;
 			compatibilityVersion = "Xcode 3.2";

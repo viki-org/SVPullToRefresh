@@ -25,18 +25,24 @@
     __weak SVViewController *weakSelf = self;
     
     // setup pull-to-refresh
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        [weakSelf insertRowAtTop];
-    }];
-        
-    // setup infinite scrolling
+//    [self.tableView addPullToRefreshWithActionHandler:^{
+//        [weakSelf insertRowAtTop];
+//    }];
+
+    // setup infinite scrolling top
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+      [weakSelf insertRowAtTop];
+    } direction:SVInfiniteScrollingDirectionVertical position:SVInfiniteScrollingPositionTop];
+  
+    // setup infinite scrolling bottom
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         [weakSelf insertRowAtBottom];
     }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [tableView triggerPullToRefresh];
+  [super viewDidAppear:animated];
+//    [tableView triggerPullToRefresh];
 }
 
 #pragma mark - Actions
@@ -55,10 +61,11 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [weakSelf.tableView beginUpdates];
         [weakSelf.dataSource insertObject:[NSDate date] atIndex:0];
-        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [weakSelf.tableView endUpdates];
         
         [weakSelf.tableView.pullToRefreshView stopAnimating];
+      [weakSelf.tableView.infiniteScrollingViewTop stopAnimating];
     });
 }
 
@@ -71,10 +78,10 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [weakSelf.tableView beginUpdates];
         [weakSelf.dataSource addObject:[weakSelf.dataSource.lastObject dateByAddingTimeInterval:-90]];
-        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [weakSelf.tableView endUpdates];
         
-        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        [weakSelf.tableView.infiniteScrollingViewBottom stopAnimating];
     });
 }
 #pragma mark -

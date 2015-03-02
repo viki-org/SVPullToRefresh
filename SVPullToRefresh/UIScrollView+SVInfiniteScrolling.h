@@ -11,21 +11,28 @@
 
 @class SVInfiniteScrollingView;
 
-enum {
+typedef NS_ENUM(NSUInteger, SVInfiniteScrollingDirection) {
     SVInfiniteScrollingDirectionVertical = 0,
     SVInfiniteScrollingDirectionHorizontal = 1
 };
 
-typedef NSUInteger SVInfiniteScrollingDirection;
+typedef NS_ENUM(NSUInteger, SVInfiniteScrollingPosition) {
+  SVInfiniteScrollingPositionTop,
+  SVInfiniteScrollingPositionBottom
+};
 
 @interface UIScrollView (SVInfiniteScrolling)
 
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler direction:(SVInfiniteScrollingDirection)direction;
-- (void)triggerInfiniteScrolling;
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler direction:(SVInfiniteScrollingDirection)direction position:(SVInfiniteScrollingPosition)position;
+- (void)triggerInfiniteScrollingTop;
+- (void)triggerInfiniteScrollingBottom;
 
-@property (nonatomic, strong, readonly) SVInfiniteScrollingView *infiniteScrollingView;
-@property (nonatomic, assign) BOOL showsInfiniteScrolling;
+@property (nonatomic, strong, readonly) SVInfiniteScrollingView *infiniteScrollingViewTop;
+@property (nonatomic, strong, readonly) SVInfiniteScrollingView *infiniteScrollingViewBottom;
+@property (nonatomic, assign) BOOL showsInfiniteScrollingTop;
+@property (nonatomic, assign) BOOL showsInfiniteScrollingBottom;
 
 @end
 
