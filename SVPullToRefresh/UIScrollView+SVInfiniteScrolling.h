@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, SVInfiniteScrollingPosition) {
 - (void)triggerInfiniteScrollingTop;
 - (void)triggerInfiniteScrollingBottom;
 
+@property (nonatomic, strong, readonly) SVInfiniteScrollingView *infiniteScrollingView;
 @property (nonatomic, strong, readonly) SVInfiniteScrollingView *infiniteScrollingViewTop;
 @property (nonatomic, strong, readonly) SVInfiniteScrollingView *infiniteScrollingViewBottom;
 @property (nonatomic, assign) BOOL showsInfiniteScrollingTop;
@@ -51,6 +52,8 @@ typedef NSUInteger SVInfiniteScrollingState;
 @property (nonatomic, readwrite) UIActivityIndicatorViewStyle activityIndicatorViewStyle;
 @property (nonatomic, readonly) SVInfiniteScrollingState state;
 @property (nonatomic, readwrite) BOOL enabled;
+@property (nonatomic, readwrite) CGFloat originalBottomInset;
+@property (nonatomic, readwrite) CGFloat originalRightInset;
 
 - (void)setCustomView:(UIView *)view forState:(SVInfiniteScrollingState)state;
 
